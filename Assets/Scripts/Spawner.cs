@@ -7,21 +7,28 @@ public class Spawner : MonoBehaviour
     public Collider2D thisCollider;
     public GameObject spawnObject;
 
+    private float lastSpawnTime;
+    public float cooldown;
 
     private void Start()
     {
         thisCollider = gameObject.GetComponent<Collider2D>();
+        lastSpawnTime = -cooldown;
     }
 
     private void Update()
     {
-        var pos = GetPosition();
-        Spawn(pos);
+        if (lastSpawnTime + cooldown <= Time.time)
+        {
+            var pos = GetPosition();
+            Spawn(pos);
+        }
     }
 
     private void Spawn(Vector2 spawnPos)
     {
         Instantiate(spawnObject, spawnPos, spawnObject.transform.rotation);
+        lastSpawnTime = Time.time;
     }
 
     private Vector2 GetPosition()

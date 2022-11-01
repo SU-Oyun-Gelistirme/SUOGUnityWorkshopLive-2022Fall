@@ -13,11 +13,13 @@ public class GiveDamage : MonoBehaviour
         if (otherHp)
         {
             otherHp.ReduceHp(damage);
+
+            if (dieOnHit)
+            {
+                Destroy(gameObject);
+            }
         }
 
-        if (dieOnHit)
-        {
-            Destroy(gameObject);
-        }
+       
     }
 }
